@@ -1,0 +1,10 @@
+<div class="auth">
+  <div *ngIf="authService.auth.user | async as user; else showLogin" class="auth__user">
+    <h4 class="h4">Hello {{ user.displayName }}!</h4>
+    <img class="photo" src="{{user.photoURL}}">
+    <button (click)="logout()" color="primary" mat-button mat-raised-button>Logout</button>
+  </div>
+  <ng-template #showLogin>
+    <button (click)="login()" color="primary" mat-button mat-raised-button>Login with Google</button>
+  </ng-template>
+</div>

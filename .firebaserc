@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "racoon-9e62c": {
+      "hosting": {
+        "playground": [
+          "racoon-9e62c"
+        ]
+      }
+    }
+  }
+}
