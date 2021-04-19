@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "playground": {
+    "firebase-playground": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/playground",
+            "outputPath": "dist/firebase-playground",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -54,8 +54,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "1mb",
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -69,18 +69,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "playground:build"
+            "browserTarget": "firebase-playground:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "playground:build:production"
+              "browserTarget": "firebase-playground:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "playground:build"
+            "browserTarget": "firebase-playground:build"
           }
         },
         "test": {
@@ -118,20 +118,20 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "playground:serve"
+            "devServerTarget": "firebase-playground:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "playground:serve:production"
+              "devServerTarget": "firebase-playground:serve:production"
             }
           }
         },
         "deploy": {
-          "builder": "@angular/fire:deploy",
+          "builder": "angular-cli-ghpages:deploy",
           "options": {}
         }
       }
     }
   },
-  "defaultProject": "playground"
+  "defaultProject": "firebase-playground"
 }
