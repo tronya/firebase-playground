@@ -16,6 +16,9 @@ import {AuthComponent} from './auth/auth.component';
 import {SharedMaterialModule} from './shared/shared-material.module';
 import {TrackerComponent} from './pages/tracker/tracker.component';
 import {MapComponent} from './map/map.component';
+import {AuthService} from './servises/auth.service';
+import {LoginDialogComponent} from './auth/login-dialog/login-dialog.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,8 @@ import {MapComponent} from './map/map.component';
     HomeComponent,
     AuthComponent,
     TrackerComponent,
-    MapComponent
+    MapComponent,
+    LoginDialogComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
@@ -36,10 +40,12 @@ import {MapComponent} from './map/map.component';
     BrowserAnimationsModule,
 
     // Shared Material Modules
-    SharedMaterialModule
+    SharedMaterialModule,
+    MatFormFieldModule
   ],
   providers: [
-    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}}
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}},
+    AuthService,
   ],
   bootstrap: [AppComponent]
 })

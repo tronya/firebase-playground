@@ -3,7 +3,7 @@ import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firest
 import {Observable} from 'rxjs';
 import {TodoModel} from '../models/todo.model';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {GUID} from '../variables';
+import {COLLECTIONS, GUID} from '../variables';
 import {generateName} from '../helpers/nameGenerator';
 
 @Component({
@@ -18,7 +18,7 @@ export class TodosComponent implements OnInit {
   constructor(
     private afs: AngularFirestore,
     private snackBar: MatSnackBar) {
-    this.todosCollection = afs.collection('todo');
+    this.todosCollection = afs.collection(COLLECTIONS.TODO);
     this.todos = this.todosCollection.valueChanges({idField: GUID});
     this.todos.subscribe(r => console.log(r));
   }

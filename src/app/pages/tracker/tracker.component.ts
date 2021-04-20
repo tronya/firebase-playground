@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from '../../servises/auth.service';
-import {GUID} from '../../variables';
+import {COLLECTIONS, GUID} from '../../variables';
 import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 import {BaseGeolocation, GeolocationModel} from '../../models/geolocation.model';
 import {Observable, Subject} from 'rxjs';
@@ -54,7 +54,7 @@ export class TrackerComponent implements OnInit, OnDestroy {
     //   }));
     // });
 
-    this.trackerCollection = this.afs.collection('tracker');
+    this.trackerCollection = this.afs.collection(COLLECTIONS.TRACKER);
     this.tacks = this.trackerCollection.valueChanges({idField: GUID});
     navigator.geolocation.getCurrentPosition(r => this.success(r), this.error, this.options);
   }

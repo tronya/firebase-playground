@@ -5,6 +5,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatDividerModule} from '@angular/material/divider';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   imports: [
@@ -13,12 +14,14 @@ import {MatDividerModule} from '@angular/material/divider';
     MatButtonModule,
     MatIconModule,
     MatToolbarModule,
+    MatDialogModule,
     MatDividerModule],
   exports: [
     MatTableModule,
     MatSnackBarModule,
     MatButtonModule,
     MatIconModule,
+    MatDialogModule,
     MatToolbarModule,
     MatDividerModule],
   providers: []
