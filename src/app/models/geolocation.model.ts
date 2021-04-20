@@ -41,7 +41,7 @@ export class BaseGeolocation implements GeolocationModel {
 
   constructor(geolocation: any) {
     this.GUID = geolocation.GUID;
-    this.coords = new GeolocationCoordinates(geolocation.coords);
+    this.coords = geolocation.coords && new GeolocationCoordinates(geolocation.coords);
     this.timestamp = geolocation.timestamp || new Date();
   }
 }

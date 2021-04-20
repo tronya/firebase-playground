@@ -15,6 +15,7 @@ import {HomeComponent} from './pages/home/home.component';
 import {AuthComponent} from './auth/auth.component';
 import {SharedMaterialModule} from './shared/shared-material.module';
 import {TrackerComponent} from './pages/tracker/tracker.component';
+import {MapComponent} from './map/map.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {TrackerComponent} from './pages/tracker/tracker.component';
     HeaderComponent,
     HomeComponent,
     AuthComponent,
-    TrackerComponent
+    TrackerComponent,
+    MapComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

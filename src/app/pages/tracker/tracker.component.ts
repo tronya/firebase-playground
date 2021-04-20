@@ -3,7 +3,8 @@ import {AuthService} from '../../servises/auth.service';
 import {GUID} from '../../variables';
 import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 import {BaseGeolocation, GeolocationModel} from '../../models/geolocation.model';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-tracker',
@@ -14,6 +15,7 @@ export class TrackerComponent implements OnInit, OnDestroy {
   public trackerCollection?: AngularFirestoreCollection<GeolocationModel>;
   tacks?: Observable<GeolocationModel[]>;
   public userId?: string;
+  public center: Subject<BaseGeolocation> = new Subject<BaseGeolocation>();
 
   public watcherId?: number;
   public options = {
@@ -25,6 +27,7 @@ export class TrackerComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private afs: AngularFirestore,
+    private snackBar: MatSnackBar
   ) {
     this.authService.auth.authState.subscribe(user => this.userId = user?.uid);
   }
@@ -35,7 +38,22 @@ export class TrackerComponent implements OnInit, OnDestroy {
     }
   }
 
+  public getRandomInRange(from: any, to: number, fixed: number): number {
+    return (Math.random() * (to - from) + from).toFixed(fixed) * 1;
+    // .toFixed() returns string, so ' * 1' is a trick to convert to number
+  }
+
   public ngOnInit(): void {
+
+    // interval(5000).subscribe(res => {
+    //   this.center.next(new BaseGeolocation({
+    //     coords: {
+    //       latitude: this.getRandomInRange(-90, 90, 3),
+    //       longitude: this.getRandomInRange(-90, 90, 3)
+    //     }
+    //   }));
+    // });
+
     this.trackerCollection = this.afs.collection('tracker');
     this.tacks = this.trackerCollection.valueChanges({idField: GUID});
     navigator.geolocation.getCurrentPosition(r => this.success(r), this.error, this.options);
@@ -47,13 +65,19 @@ export class TrackerComponent implements OnInit, OnDestroy {
         return;
       }
       const position = JSON.parse(JSON.stringify(new BaseGeolocation(pos)));
-      this.trackerCollection.add({...position, UID: this.userId}).then((resp) => {
-        console.log(resp);
-      });
+      this.trackerCollection
+        .add({...position, UID: this.userId})
+        .then((resp) => {
+          this.center.next(pos);
+        });
     }
   }
 
   public error(err: any): void {
-    console.warn('ERROR(' + err.code + '): ' + err.message);
+    const errorMessage = `ERROR(${err.code}):  ${err.message}`;
+    this.snackBar.open(errorMessage, undefined, {
+      duration: 3000
+    });
+    console.warn(errorMessage);
   }
 }
