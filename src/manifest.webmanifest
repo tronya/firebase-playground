@@ -1,6 +1,6 @@
 {
-  "name": "playground",
-  "short_name": "playground",
+  "name": "firebase-playground",
+  "short_name": "firebase-playground",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",

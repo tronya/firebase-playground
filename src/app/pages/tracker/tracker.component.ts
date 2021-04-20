@@ -66,8 +66,10 @@ export class TrackerComponent implements OnInit, OnDestroy {
       }
       const position = JSON.parse(JSON.stringify(new BaseGeolocation(pos)));
       this.trackerCollection
-        .add({...position, UID: this.userId})
+        .doc(this.userId)
+        .set(position)
         .then((resp) => {
+          console.log(resp);
           this.center.next(pos);
         });
     }

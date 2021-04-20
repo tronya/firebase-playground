@@ -19,6 +19,7 @@ import {MapComponent} from './map/map.component';
 import {AuthService} from './servises/auth.service';
 import {LoginDialogComponent} from './auth/login-dialog/login-dialog.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {ServiceWorkerModule} from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,13 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 
     // Shared Material Modules
     SharedMaterialModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [
     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}},
