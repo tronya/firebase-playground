@@ -56,7 +56,7 @@ export class TrackerComponent implements OnInit, OnDestroy {
 
     this.trackerCollection = this.afs.collection(COLLECTIONS.TRACKER);
     this.tacks = this.trackerCollection.valueChanges({idField: GUID});
-    navigator.geolocation.getCurrentPosition(r => this.success(r), this.error, this.options);
+    navigator.geolocation.watchPosition(r => this.success(r), this.error, this.options);
   }
 
   public success(pos: any): void {
