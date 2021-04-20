@@ -1,7 +1,6 @@
 export interface GeolocationModel {
   coords: GeolocationCoordinates;
   timestamp: number;
-  GUID: string;
 }
 
 export interface GeolocationCoordinates {
@@ -37,10 +36,8 @@ export class GeolocationCoordinates implements GeolocationCoordinates {
 export class BaseGeolocation implements GeolocationModel {
   public coords: GeolocationCoordinates;
   public timestamp: number;
-  public GUID: string;
 
   constructor(geolocation: any) {
-    this.GUID = geolocation.GUID;
     this.coords = geolocation.coords && new GeolocationCoordinates(geolocation.coords);
     this.timestamp = geolocation.timestamp || new Date();
   }

@@ -3,7 +3,7 @@ import {AuthService} from '../../servises/auth.service';
 import {COLLECTIONS, GUID} from '../../variables';
 import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 import {BaseGeolocation, GeolocationModel} from '../../models/geolocation.model';
-import {Observable, Subject} from 'rxjs';
+import {BehaviorSubject, Subject} from 'rxjs';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
@@ -13,7 +13,8 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class TrackerComponent implements OnInit, OnDestroy {
   public trackerCollection?: AngularFirestoreCollection<GeolocationModel>;
-  tacks?: Observable<GeolocationModel[]>;
+  public userMarkers: BehaviorSubject<GeolocationModel[]> = new BehaviorSubject<GeolocationModel[]>([]);
+
   public userId?: string;
   public center: Subject<BaseGeolocation> = new Subject<BaseGeolocation>();
 
@@ -40,23 +41,16 @@ export class TrackerComponent implements OnInit, OnDestroy {
 
   public getRandomInRange(from: any, to: number, fixed: number): number {
     return (Math.random() * (to - from) + from).toFixed(fixed) * 1;
-    // .toFixed() returns string, so ' * 1' is a trick to convert to number
   }
 
   public ngOnInit(): void {
-
-    // interval(5000).subscribe(res => {
-    //   this.center.next(new BaseGeolocation({
-    //     coords: {
-    //       latitude: this.getRandomInRange(-90, 90, 3),
-    //       longitude: this.getRandomInRange(-90, 90, 3)
-    //     }
-    //   }));
-    // });
-
-    this.trackerCollection = this.afs.collection(COLLECTIONS.TRACKER);
-    this.tacks = this.trackerCollection.valueChanges({idField: GUID});
+    this.showUserMarkers();
     navigator.geolocation.watchPosition(r => this.success(r), this.error, this.options);
+  }
+
+  public showUserMarkers(): void {
+    this.trackerCollection = this.afs.collection(COLLECTIONS.TRACKER);
+    this.trackerCollection.valueChanges({idField: GUID}).subscribe(tracks => this.userMarkers.next(tracks));
   }
 
   public success(pos: any): void {

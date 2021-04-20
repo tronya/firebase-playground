@@ -1,8 +1,7 @@
 
-<ul *ngFor="let track of tacks | async">
-  <li *ngIf="track.GUID">{{track.GUID}}</li>
+<ul *ngFor="let track of userMarkers | async">
   <li *ngIf="track.coords">{{track.coords.longitude}}</li>
   <li *ngIf="track.coords">{{track.coords.latitude}}</li>
 </ul>
 
-<app-map [center]="center"></app-map>
+<app-map [center]="center" [markers]="userMarkers"></app-map>
