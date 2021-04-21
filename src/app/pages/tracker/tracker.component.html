@@ -1,5 +1,6 @@
 
 <ul *ngFor="let track of userMarkers | async">
+  <li *ngIf="track.coords">{{track.displayName}}</li>
   <li *ngIf="track.coords">{{track.coords.longitude}}</li>
   <li *ngIf="track.coords">{{track.coords.latitude}}</li>
 </ul>

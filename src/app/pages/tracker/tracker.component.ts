@@ -5,6 +5,7 @@ import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firest
 import {BaseGeolocation, GeolocationModel} from '../../models/geolocation.model';
 import {BehaviorSubject, Subject} from 'rxjs';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {User} from '../../models/user.model';
 
 @Component({
   selector: 'app-tracker',
@@ -15,7 +16,7 @@ export class TrackerComponent implements OnInit, OnDestroy {
   public trackerCollection?: AngularFirestoreCollection<GeolocationModel>;
   public userMarkers: BehaviorSubject<GeolocationModel[]> = new BehaviorSubject<GeolocationModel[]>([]);
 
-  public userId?: string;
+  public user?: User;
   public center: Subject<BaseGeolocation> = new Subject<BaseGeolocation>();
 
   public watcherId?: number;
@@ -30,7 +31,7 @@ export class TrackerComponent implements OnInit, OnDestroy {
     private afs: AngularFirestore,
     private snackBar: MatSnackBar
   ) {
-    this.authService.auth.authState.subscribe(user => this.userId = user?.uid);
+    this.authService.user.subscribe(user => this.user = user);
   }
 
   public ngOnDestroy(): void {
@@ -45,7 +46,7 @@ export class TrackerComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.showUserMarkers();
-    navigator.geolocation.watchPosition(r => this.success(r), this.error, this.options);
+    navigator.geolocation.watchPosition(r => this.success(r), e => this.error(e), this.options);
   }
 
   public showUserMarkers(): void {
@@ -55,15 +56,22 @@ export class TrackerComponent implements OnInit, OnDestroy {
 
   public success(pos: any): void {
     if (this.trackerCollection) {
-      if (!this.userId) {
+      if (!this.user?.uid) {
         return;
       }
-      const position = JSON.parse(JSON.stringify(new BaseGeolocation(pos)));
+      const geoUserObject = new BaseGeolocation({
+        coords: pos.coords,
+        timestamp: pos.timestamp,
+        uid: this.user.uid,
+        photoURL: this.user.photoURL,
+        displayName: this.user.displayName
+      });
+
+      const position = JSON.parse(JSON.stringify(geoUserObject));
       this.trackerCollection
-        .doc(this.userId)
+        .doc(this.user.uid)
         .set(position)
         .then((resp) => {
-          console.log(resp);
           this.center.next(pos);
         });
     }

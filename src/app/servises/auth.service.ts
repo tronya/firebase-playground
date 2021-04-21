@@ -7,6 +7,7 @@ import {User} from '../models/user.model';
 import {COLLECTIONS} from '../variables';
 import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {Subject} from 'rxjs';
 import UserCredential = firebase.auth.UserCredential;
 
 @Injectable({
@@ -15,6 +16,7 @@ import UserCredential = firebase.auth.UserCredential;
 export class AuthService {
   public auth: AngularFireAuth;
   private usersCollection: AngularFirestoreCollection<User> = this.afs.collection(COLLECTIONS.USERS);
+  public user: Subject<User> = new Subject<User>();
 
   constructor(
     private fireAuth: AngularFireAuth,
@@ -58,6 +60,8 @@ export class AuthService {
         if (!userRef.exists) {
           this.saveNewUser(userInfo as User);
         }
+        // saving user to service
+        this.user.next(new User(userInfo));
       });
   }
 
