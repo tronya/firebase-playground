@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import * as MapBox from 'mapbox-gl';
-import {LngLatLike} from 'mapbox-gl';
+import {GeoJSONSource, LngLatLike} from 'mapbox-gl';
 import {environment} from '../../environments/environment';
 import {Subject} from 'rxjs';
 import {BaseGeolocation, GeolocationModel} from '../models/geolocation.model';
@@ -48,7 +48,7 @@ export class MapComponent implements OnInit {
       type: 'symbol',
       source: 'users',
       layout: {
-        'icon-image': 'marker-15'
+        'icon-image': 'rocket-15'
       }
     });
 
@@ -81,24 +81,22 @@ export class MapComponent implements OnInit {
       return;
     }
 
-    geoJson.features.forEach(((marker: any) => {
-      const el = document.createElement('div');
-      el.className = 'marker';
-      if (marker.properties.photoURL) {
-        el.style.backgroundImage = `url(${marker.properties.photoURL})`;
-      }
-      if (this.map instanceof MapBox.Map) {
-        new MapBox.Marker(el)
-          .setLngLat(marker.geometry.coordinates)
-          .addTo(this.map);
-      }
-    }));
-    // if (this.map) {
-
-    //   const source = this.map.getSource('users') as GeoJSONSource;
-    //   console.log(source);
-    //   source.setData(geoJson);
-    // }
+    // geoJson.features.forEach(((marker: any) => {
+    //   const el = document.createElement('div');
+    //   el.className = 'marker';
+    //   if (marker.properties.photoURL) {
+    //     el.style.backgroundImage = `url(${marker.properties.photoURL})`;
+    //   }
+    //   if (this.map instanceof MapBox.Map) {
+    //     new MapBox.Marker(el)
+    //       .setLngLat(marker.geometry.coordinates)
+    //       .addTo(this.map);
+    //   }
+    // }));
+    if (this.map) {
+      const source = this.map.getSource('users') as GeoJSONSource;
+      source.setData(geoJson);
+    }
   }
 
   public setCenter(center: { lng: number; lat: number }): void {

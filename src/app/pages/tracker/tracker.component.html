@@ -1,8 +1,20 @@
+<div class="row">
 
-<ul *ngFor="let track of userMarkers | async">
-  <li *ngIf="track.coords">{{track.displayName}}</li>
-  <li *ngIf="track.coords">{{track.coords.longitude}}</li>
-  <li *ngIf="track.coords">{{track.coords.latitude}}</li>
-</ul>
+  <div class="col col-sm-12 col-md-4 col-lg-3">
+    <mat-list>
+      <h3 mat-subheader>People</h3>
+      <mat-list-item *ngFor="let track of userMarkers | async; last as last">
+        <mat-icon mat-list-icon>user</mat-icon>
+        <h4 mat-line>{{track.displayName}}</h4>
+        <p *ngIf="track.coords" mat-line> {{track.coords.longitude}}</p>
+        <p *ngIf="track.coords" mat-line> {{track.coords.latitude}}</p>
+        <mat-divider *ngIf="!last" [inset]="true"></mat-divider>
+      </mat-list-item>
+    </mat-list>
+  </div>
 
-<app-map [center]="center" [markers]="userMarkers"></app-map>
+  <div class="col col-sm-12 col-md-8 col-lg-9">
+    <app-map [center]="center" [markers]="userMarkers"></app-map>
+  </div>
+
+</div>
