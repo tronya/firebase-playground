@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1619016524005,
+  "timestamp": 1619017637037,
   "index": "https://tronya.github.io/firebase-playground/index.html",
   "assetGroups": [
     {
@@ -15,7 +15,7 @@
         "https://tronya.github.io/firebase-playground/5.46c0bf476041150c4f68.js",
         "https://tronya.github.io/firebase-playground/favicon.ico",
         "https://tronya.github.io/firebase-playground/index.html",
-        "https://tronya.github.io/firebase-playground/main.c739e59f798ceef141ab.js",
+        "https://tronya.github.io/firebase-playground/main.0307d8a3b5de5e289b26.js",
         "https://tronya.github.io/firebase-playground/manifest.webmanifest",
         "https://tronya.github.io/firebase-playground/polyfills.00096ed7d93ed26ee6df.js",
         "https://tronya.github.io/firebase-playground/runtime.73bde6fcd8f3f50eed62.js",
@@ -56,8 +56,8 @@
     "https://tronya.github.io/firebase-playground/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
     "https://tronya.github.io/firebase-playground/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
     "https://tronya.github.io/firebase-playground/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "https://tronya.github.io/firebase-playground/index.html": "ac08f0f57fe2c3e51f92cc1b6d09a11770f0157d",
-    "https://tronya.github.io/firebase-playground/main.c739e59f798ceef141ab.js": "cd87aab7a5948a6524e02ea86b4e7f2647bc2d25",
+    "https://tronya.github.io/firebase-playground/index.html": "e6925f76bd4e2c36c8e4064f32edf69f9db5b9ce",
+    "https://tronya.github.io/firebase-playground/main.0307d8a3b5de5e289b26.js": "15b7962133b2bf32dfbf629524e525256ed74bc3",
     "https://tronya.github.io/firebase-playground/manifest.webmanifest": "62e3353a93e4f77f3a3fc84439cf38825ef1ad40",
     "https://tronya.github.io/firebase-playground/polyfills.00096ed7d93ed26ee6df.js": "cfe7b0b53e96bff9ba384b4d497c08475a617d62",
     "https://tronya.github.io/firebase-playground/runtime.73bde6fcd8f3f50eed62.js": "4b4819dc55ef17149e734c30ef654fb28a64f31c",
